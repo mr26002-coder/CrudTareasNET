@@ -1,0 +1,17 @@
+.vs/
+bin/
+obj/
+publish/
+Publish/
+*-publish/
+TestResults/
+artifacts/
+*.user
+*.userosscache
+*.suo
+*.cache
+*.dbmdl
+*.pubxml.user
+*.log
+*.mdf
+*.ldf
