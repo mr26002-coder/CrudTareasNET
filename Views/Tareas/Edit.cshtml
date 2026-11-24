@@ -1,47 +1,43 @@
 @model TareasMvc.Models.Tarea
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar tarea";
 }
 
-<h1>Edit</h1>
-
-<h4>Tarea</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="app-card app-card-narrow mx-auto">
+    <div class="app-card-header">
+        <h1 class="h4 mb-1">Editar tarea</h1>
+        <p class="app-text-muted small mb-0">Actualiza los datos de la tarea</p>
+    </div>
+    <div class="app-card-body">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Titulo" class="form-label"></label>
                 <input asp-for="Titulo" class="form-control" />
                 <span asp-validation-for="Titulo" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Descripcion" class="form-label"></label>
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Completada" /> @Html.DisplayNameFor(model => model.Completada)
-                </label>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" asp-for="Completada" />
+                <label class="form-check-label" asp-for="Completada"></label>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaCreacion" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="FechaCreacion" class="form-label"></label>
                 <input asp-for="FechaCreacion" class="form-control" />
                 <span asp-validation-for="FechaCreacion" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

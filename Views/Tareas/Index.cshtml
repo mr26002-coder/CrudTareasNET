@@ -1,53 +1,60 @@
 @model IEnumerable<TareasMvc.Models.Tarea>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Mis tareas";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="app-card">
+    <div class="app-card-header d-flex flex-wrap gap-3 justify-content-between align-items-center">
+        <div>
+            <h1 class="h4 mb-1">Mis tareas</h1>
+            <p class="app-text-muted small mb-0">Organiza y revisa tus pendientes</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">+ Nueva tarea</a>
+    </div>
+    <div class="app-card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-app align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Estado</th>
+                            <th>Creada</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@item.Titulo</td>
+                                <td class="app-text-muted">@(string.IsNullOrWhiteSpace(item.Descripcion) ? "—" : item.Descripcion)</td>
+                                <td>
+                                    <span class="badge rounded-pill app-badge @(item.Completada ? "app-badge-ok" : "app-badge-pending")">
+                                        @(item.Completada ? "Completada" : "Pendiente")
+                                    </span>
+                                </td>
+                                <td class="app-text-muted small text-nowrap">@item.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                                <td class="text-nowrap">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Ver</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5 app-text-muted">
+                <p class="mb-2">Todavía no hay tareas.</p>
+                <a asp-action="Create" class="btn btn-outline-primary">Crear la primera</a>
+            </div>
+        }
+    </div>
+</div>

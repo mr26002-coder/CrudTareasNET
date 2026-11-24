@@ -1,45 +1,33 @@
 @model TareasMvc.Models.Tarea
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar tarea";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Tarea</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Completada)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Completada)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaCreacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaCreacion)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="app-card app-card-narrow mx-auto">
+    <div class="app-card-header">
+        <h1 class="h4 mb-0">Eliminar tarea</h1>
+    </div>
+    <div class="app-card-body">
+        <div class="app-alert mb-4">¿Seguro que deseas eliminar esta tarea? Esta acción no se puede deshacer.</div>
+        <dl class="row mb-0">
+            <dt class="col-sm-3 app-text-muted">Título</dt>
+            <dd class="col-sm-9 fw-semibold">@Model.Titulo</dd>
+            <dt class="col-sm-3 app-text-muted">Descripción</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.Descripcion) ? "—" : Model.Descripcion)</dd>
+            <dt class="col-sm-3 app-text-muted">Estado</dt>
+            <dd class="col-sm-9">@(Model.Completada ? "Completada" : "Pendiente")</dd>
+            <dt class="col-sm-3 app-text-muted">Fecha de creación</dt>
+            <dd class="col-sm-9">@Model.FechaCreacion.ToString("dd/MM/yyyy")</dd>
+        </dl>
+    </div>
+    <div class="app-card-footer">
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
 </div>
